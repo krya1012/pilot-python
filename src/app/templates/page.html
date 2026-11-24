@@ -1,3 +1,24 @@
-<h1>Meine App</h1>
+<h1>Meine Urlaubstage</h1>
 
-<p class="lead">Hier entsteht Ihre Anwendung.</p>
+<p class="lead">Hier sehen Sie Ihre eingetragenen Urlaubstage.</p>
+
+{% if tage %}
+<div class="table-wrap" role="region" aria-labelledby="urlaub-caption" tabindex="0">
+  <table class="table">
+    <caption id="urlaub-caption">Urlaubstage von {{ tage|length }} Tag{{ "" if tage|length == 1 else "en" }}</caption>
+    <thead>
+      <tr><th scope="col">Datum</th><th scope="col">Grund</th></tr>
+    </thead>
+    <tbody>
+      {% for tag in tage %}
+      <tr>
+        <th scope="row"><time datetime="{{ tag.iso }}">{{ tag.datum }}</time></th>
+        <td>{{ tag.grund }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p class="notice">Für Sie sind keine Urlaubstage eingetragen.</p>
+{% endif %}
